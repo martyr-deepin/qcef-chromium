@@ -53,7 +53,7 @@ ninja_args+=host_cpu=\"arm\" \
             arm_use_neon=false
 endif
 
-all: build-gn generate-gn-args
+all: build-gn generate-cef-args build-cef
 
 build-gn:
 	cd src && \
@@ -67,10 +67,14 @@ build-chrome:
 	cd src && \
 		ninja -C out/Release chrome chrome_sandbox
 
-build-cef:
+generate-cef-args:
 	cd src/cef && \
 	PATH=$(PWD)/src/out/Release:$(PWD)/depot_tools:$$PATH \
 		 ./cef_create_projects.sh
+
+build-cef:
+	cd src && \
+		ninja -C out/Release cef chrome_sandbox
 
 update-submodules:
 	git submodule update --init --recursive
