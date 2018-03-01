@@ -295,7 +295,6 @@ vs-chromium-project.txt
 /ui/keyboard/keyboard_mojom_bindings.xml
 /ui/surface/surface.xml
 /ui/surface/surface_gpu_tests.xml
-/v8
 /webkit/data
 /webpagereplay_logs/
 /win8/delegate_execute/delegate_execute_version_resources.xml
