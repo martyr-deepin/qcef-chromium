@@ -68,8 +68,9 @@ build-chrome:
 		ninja -C out/Release chrome chrome_sandbox
 
 build-cef:
-	cd src && \
-		PATH=$(PATH):../../depot_tools ./cef_create_projects.sh
+	cd src/cef && \
+	PATH=$(PWD)/src/out/Release:$(PWD)/depot_tools:$$PATH \
+		 ./cef_create_projects.sh
 
 update-submodules:
 	git submodule update --init --recursive
