@@ -67,12 +67,21 @@ build-chrome:
 	cd src && \
 		ninja -C out/Release chrome chrome_sandbox
 
-generate-cef-args:
+# Create git repo in src or else git-patch command will not work
+generate-cef-args: create-temp-git-repos
 	cd src/cef && \
 	PATH=$(PWD)/src/out/Release:$(PWD)/depot_tools:$$PATH \
 		 ./cef_create_projects.sh
 
-build-cef:
+create-temp-git-repos:
+	cd src && git init
+	cd src/third_party/pdfium && git init
+	cd src/third_party/swiftshader && git init
+
+clean-temp-git-repos:
+	rm -rvf src/.git src/third_party/pdfium/.git src/third_party/swiftshader/.git
+
+build-cef: clean-temp-git-repos
 	cd src && \
 		ninja -C out/Release_GN_$(TARGET_CPU) cef chrome_sandbox
 
