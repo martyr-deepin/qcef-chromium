@@ -74,7 +74,7 @@ generate-cef-args:
 
 build-cef:
 	cd src && \
-		ninja -C out/Release cef chrome_sandbox
+		ninja -C out/Release_GN_$(TARGET_CPU) cef chrome_sandbox
 
 update-submodules:
 	git submodule update --init --recursive
