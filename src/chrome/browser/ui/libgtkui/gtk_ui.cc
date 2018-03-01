@@ -320,8 +320,12 @@ float GetRawDeviceScaleFactor() {
     return display::Display::GetForcedDeviceScaleFactor();
 
   GdkScreen* screen = gdk_screen_get_default();
+#if GTK_MAJOR_VERSION == 2
+  //gint scale = 1;
+#else
   gint scale = gdk_screen_get_monitor_scale_factor(
       screen, gdk_screen_get_primary_monitor(screen));
+#endif
   gdouble resolution = gdk_screen_get_resolution(screen);
   return resolution <= 0 ? scale : resolution * scale / kDefaultDPI;
 }
