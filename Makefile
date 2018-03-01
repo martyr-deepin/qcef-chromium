@@ -22,6 +22,7 @@ ninja_args=is_debug=false \
            enable_nacl=false \
            enable_nacl_nonsfi=false \
            enable_google_now=false \
+           enable_widevine=false \
            enable_hangout_services_extension=false \
            enable_iterator_debugging=false \
            gold_path=\"\" \
@@ -32,7 +33,6 @@ ninja_args+=use_gio=true \
             use_gold=true \
             use_pulseaudio=true \
             link_pulseaudio=true \
-            enable_widevine=true \
             proprietary_codecs=true \
             ffmpeg_branding=\"Chrome\" \
             fieldtrial_testing_like_official_build=true \
@@ -66,3 +66,7 @@ generate-gn-args:
 build-chrome:
 	cd src && \
 		ninja -C out/Release chrome chrome_sandbox
+
+update-submodules:
+	git submodule update --init --recursive
+	git submodule update --remote
