@@ -321,7 +321,7 @@ float GetRawDeviceScaleFactor() {
 
   GdkScreen* screen = gdk_screen_get_default();
 #if GTK_MAJOR_VERSION == 2
-  //gint scale = 1;
+  gint scale = 1;
 #else
   gint scale = gdk_screen_get_monitor_scale_factor(
       screen, gdk_screen_get_primary_monitor(screen));
