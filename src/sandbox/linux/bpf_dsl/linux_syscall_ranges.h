@@ -42,9 +42,9 @@
 
 #elif defined(__mips__) && (_MIPS_SIM == _ABI64)
 
-#include <asm/unistd.h>  // for __NR_O32_Linux and __NR_Linux_syscalls
+#include <asm/unistd.h>  // for __NR_64_Linux and __NR_64_Linux_syscalls
 #define MIN_SYSCALL         __NR_64_Linux
-#define MAX_PUBLIC_SYSCALL  (MIN_SYSCALL + __NR_Linux_syscalls)
+#define MAX_PUBLIC_SYSCALL  (MIN_SYSCALL + __NR_64_Linux_syscalls)
 #define MAX_SYSCALL         MAX_PUBLIC_SYSCALL
 
 #elif defined(__aarch64__)

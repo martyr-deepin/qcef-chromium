@@ -190,7 +190,7 @@ typedef user_regs regs_struct;
 #define SECCOMP_PT_PARM5(_regs)   (_regs).REG_r4
 #define SECCOMP_PT_PARM6(_regs)   (_regs).REG_r5
 
-#elif defined(__mips__) && (_MIPS_SIM == _MIPS_SIM_ABI32)
+#elif defined(__mips__) && (_MIPS_SIM == _ABIO32)
 #define SECCOMP_ARCH        AUDIT_ARCH_MIPSEL
 #define SYSCALL_EIGHT_ARGS
 // MIPS sigcontext_t is different from i386/x86_64 and ARM.
@@ -244,13 +244,13 @@ struct regs_struct {
 #define SECCOMP_PT_PARM3(_regs)   (_regs).REG_a2
 #define SECCOMP_PT_PARM4(_regs)   (_regs).REG_a3
 
-#elif defined(__mips__) && (_MIPS_SIM == _MIPS_SIM_ABI64)
-#define SECCOMP_ARCH        AUDIT_ARCH_MIPSEL
+#elif defined(__mips__) && (_MIPS_SIM == _ABI64)
+#define SECCOMP_ARCH        AUDIT_ARCH_MIPSEL64
 #define SYSCALL_EIGHT_ARGS
 // MIPS sigcontext_t is different from i386/x86_64 and ARM.
 // See </arch/mips/include/uapi/asm/sigcontext.h> in the Linux kernel.
 #define SECCOMP_REG(_ctx, _reg) ((_ctx)->uc_mcontext.gregs[_reg])
-// Based on MIPS o32 ABI syscall convention.
+// Based on MIPS n64 ABI syscall convention.
 // On MIPS, when indirect syscall is being made (syscall(__NR_foo)),
 // real identificator (__NR_foo) is not in v0, but in a0
 #define SECCOMP_RESULT(_ctx)    SECCOMP_REG(_ctx, 2)
@@ -260,13 +260,10 @@ struct regs_struct {
 #define SECCOMP_PARM2(_ctx)     SECCOMP_REG(_ctx, 5)
 #define SECCOMP_PARM3(_ctx)     SECCOMP_REG(_ctx, 6)
 #define SECCOMP_PARM4(_ctx)     SECCOMP_REG(_ctx, 7)
-// Only the first 4 arguments of syscall are in registers.
-// The rest are on the stack.
-#define SECCOMP_STACKPARM(_ctx, n)  (((long *)SECCOMP_REG(_ctx, 29))[(n)])
-#define SECCOMP_PARM5(_ctx)         SECCOMP_STACKPARM(_ctx, 4)
-#define SECCOMP_PARM6(_ctx)         SECCOMP_STACKPARM(_ctx, 5)
-#define SECCOMP_PARM7(_ctx)         SECCOMP_STACKPARM(_ctx, 6)
-#define SECCOMP_PARM8(_ctx)         SECCOMP_STACKPARM(_ctx, 7)
+#define SECCOMP_PARM5(_ctx)     SECCOMP_REG(_ctx, 8)
+#define SECCOMP_PARM6(_ctx)     SECCOMP_REG(_ctx, 9)
+#define SECCOMP_PARM7(_ctx)     SECCOMP_REG(_ctx, 10)
+#define SECCOMP_PARM8(_ctx)     SECCOMP_REG(_ctx, 11)
 #define SECCOMP_NR_IDX          (offsetof(struct arch_seccomp_data, nr))
 #define SECCOMP_ARCH_IDX        (offsetof(struct arch_seccomp_data, arch))
 #define SECCOMP_IP_MSB_IDX      (offsetof(struct arch_seccomp_data,           \
@@ -284,6 +281,10 @@ struct regs_struct {
   unsigned long long regs[32];
 };
 
+#define REG_a7 regs[11]
+#define REG_a6 regs[10]
+#define REG_a5 regs[9]
+#define REG_a4 regs[8]
 #define REG_a3 regs[7]
 #define REG_a2 regs[6]
 #define REG_a1 regs[5]
@@ -297,6 +298,10 @@ struct regs_struct {
 #define SECCOMP_PT_PARM2(_regs)   (_regs).REG_a1
 #define SECCOMP_PT_PARM3(_regs)   (_regs).REG_a2
 #define SECCOMP_PT_PARM4(_regs)   (_regs).REG_a3
+#define SECCOMP_PT_PARM5(_regs)   (_regs).REG_a4
+#define SECCOMP_PT_PARM6(_regs)   (_regs).REG_a5
+#define SECCOMP_PT_PARM7(_regs)   (_regs).REG_a6
+#define SECCOMP_PT_PARM8(_regs)   (_regs).REG_a7
 
 #elif defined(__aarch64__)
 struct regs_struct {
