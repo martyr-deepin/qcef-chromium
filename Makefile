@@ -41,16 +41,20 @@ ninja_args+=use_gio=true \
 # set the appropriate cpu architecture
 ifeq (i386,$(DEB_HOST_ARCH))
 ninja_args+=host_cpu=\"x86\"
+TARGET_CPU = "x86"
 endif
 ifeq (amd64,$(DEB_HOST_ARCH))
 ninja_args+=host_cpu=\"x64\"
+TARGET_CPU = "x64"
 endif
 ifeq (arm64,$(DEB_HOST_ARCH))
 ninja_args+=host_cpu=\"arm64\"
+TARGET_CPU = "arm64"
 endif
 ifeq (armhf,$(DEB_HOST_ARCH))
 ninja_args+=host_cpu=\"arm\" \
             arm_use_neon=false
+TARGET_CPU = "arm"
 endif
 
 all: build-gn generate-cef-args build-cef
