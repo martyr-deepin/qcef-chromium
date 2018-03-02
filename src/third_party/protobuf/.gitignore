@@ -41,6 +41,8 @@ stamp-h1
 src/.libs
 *.so
 
+*.pyc
+
 .dirstamp
 
 any_test.pb.*
