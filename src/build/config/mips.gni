@@ -14,6 +14,7 @@ if (current_cpu == "mipsel" || v8_current_cpu == "mipsel") {
     #   "r1"
     #   "r2"
     #   "r6"
+    #   "loongson3"
     mips_arch_variant = "r1"
 
     # MIPS DSP ASE revision. Possible values are:
@@ -40,6 +41,7 @@ if (current_cpu == "mipsel" || v8_current_cpu == "mipsel") {
   # MIPS arch variant. Possible values are:
   #   "r2"
   #   "r6"
+  #   "loongson3"
   if (current_os == "android" || target_os == "android") {
     declare_args() {
       mips_arch_variant = "r6"
@@ -49,10 +51,15 @@ if (current_cpu == "mipsel" || v8_current_cpu == "mipsel") {
     }
   } else {
     declare_args() {
-      mips_arch_variant = "r2"
+      mips_arch_variant = "loongson3"
 
       # MIPS SIMD Arch compilation flag.
       mips_use_msa = false
     }
   }
+
+  # MIPS floating-point ABI. Possible values are:
+  #   "hard": sets the GCC -mhard-float option.
+  #   "soft": sets the GCC -msoft-float option.
+  mips_float_abi = "hard"
 }

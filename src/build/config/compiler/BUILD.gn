@@ -678,6 +678,24 @@ config("compiler_cpu_abi") {
             "-Wa,-mips32",
           ]
         }
+      } else if (mips_arch_variant == "loongson2e") {
+        cflags += [
+          "-march=loongson2e",
+          "-Wa,-march=loongson2e",
+        ]
+        ldfalgs += [ "-march=loongson2e" ]
+      } else if (mips_arch_variant == "loongson2f") {
+        cflags += [
+          "-march=loongson2f",
+          "-Wa,-march=loongson2f",
+        ]
+        ldfalgs += [ "-march=loongson2f" ]
+      } else if (mips_arch_variant == "loongson3") {
+        cflags += [
+          "-march=loongson3a",
+          "-Wa,-march=loongson3a",
+        ]
+        ldfalgs += [ "-march=loongson3a" ]
       }
 
       if (mips_dsp_rev == 1) {
@@ -717,6 +735,12 @@ config("compiler_cpu_abi") {
           "-Wa,-mips64r2",
         ]
         ldflags += [ "-mips64r2" ]
+      } else if (mips_arch_variant == "loongson3") {
+        cflags += [
+          "-march=loongson3a",
+          "-Wa,-march=loongson3a",
+        ]
+        ldflags += [ "-march=loongson3a" ]
       }
     } else if (current_cpu == "pnacl" && is_nacl_nonsfi) {
       if (target_cpu == "x86" || target_cpu == "x64") {
@@ -1291,6 +1315,8 @@ config("no_incompatible_pointer_warnings") {
     cflags += [ "-Wno-incompatible-pointer-types" ]
   } else if (current_cpu == "mipsel") {
     cflags += [ "-w" ]
+  } else if (current_cpu == "mips64el") {
+    cflags += [ "-w" ]
   } else if (is_chromeos && current_cpu == "arm") {
     cflags += [ "-w" ]
   }
@@ -1445,7 +1471,11 @@ config("optimize") {
     # Favor size over speed.
     # TODO(crbug.com/718650): Fix -Os in PNaCl compiler and remove the is_nacl
     # guard above.
-    cflags = [ "-Os" ] + common_optimize_on_cflags
+    if (current_cpu == "mipsel" || current_cpu == "mips64el") {
+      cflags = [ "-O2" ] + common_optimize_on_cflags
+    } else {
+      cflags = [ "-Os" ] + common_optimize_on_cflags
+    }
   } else {
     cflags = [ "-O2" ] + common_optimize_on_cflags
   }
@@ -1462,7 +1492,11 @@ config("optimize_no_wpo") {
     # Favor size over speed.
     # TODO(crbug.com/718650): Fix -Os in PNaCl compiler and remove the is_nacl
     # guard above.
-    cflags = [ "-Os" ] + common_optimize_on_cflags
+    if (current_cpu == "mipsel" || current_cpu == "mips64el") {
+      cflags = [ "-O2" ] + common_optimize_on_cflags
+    } else {
+      cflags = [ "-Os" ] + common_optimize_on_cflags
+    }
   } else if (optimize_for_fuzzing) {
     cflags = [ "-O1" ] + common_optimize_on_cflags
   } else {
