@@ -185,7 +185,6 @@ vs-chromium-project.txt
 /libassistant
 /llvm
 /media/cast/logging/cast_logging_proto_lib.xml
-/media/cdm/api
 /media/media_mojo_bindings.xml
 /media/test/data/internal
 /metro_driver
