@@ -10,7 +10,6 @@
 /Release
 /Release_x64
 /win_toolchain.json
-/util/LASTCHANGE*
 /util/support
 /x64/
 /linux/bin/eu-strip
