@@ -45,6 +45,7 @@ config("skia_config") {
   ]
 
   defines = skia_for_chromium_defines
+  cflags_cc = []
   defines += [
     "SK_HAS_PNG_LIBRARY",
     "SK_HAS_WEBP_LIBRARY",
@@ -93,6 +94,10 @@ config("skia_config") {
 
   if (skia_whitelist_serialized_typefaces) {
     defines += [ "SK_WHITELIST_SERIALIZED_TYPEFACES" ]
+  }
+
+  if (current_cpu == "mipsel" || current_cpu == "mips64el") {
+    cflags_cc += [ "-ffp-contract=off" ]
   }
 }
 
