@@ -57,8 +57,6 @@ python/*.egg
 python/.eggs/
 python/.tox
 python/build/
-python/google/protobuf/compiler/
-python/google/protobuf/util/
 
 src/protoc
 src/unittest_proto_middleman
