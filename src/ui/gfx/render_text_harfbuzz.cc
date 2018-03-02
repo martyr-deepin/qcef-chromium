@@ -1163,7 +1163,13 @@ std::vector<Rect> RenderTextHarfBuzz::GetSubstringBounds(const Range& range) {
               gfx::Range(segment.char_range.start(), intersection.start())));
         }
         int end_x = std::ceil(x + width);
+        // start_x return less 1 on Loongson.
+        // The method test passed on x86, but worry about affecting other platforms.
+#ifdef __mips__
+        int start_x = std::ceil(x - 0.5f);
+#else
         int start_x = std::ceil(x);
+#endif
         gfx::Rect rect(start_x, 0, end_x - start_x, line.size.height());
         rects.push_back(rect + GetLineOffset(line_index));
       }
