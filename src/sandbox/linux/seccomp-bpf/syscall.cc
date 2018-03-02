@@ -359,7 +359,7 @@ intptr_t Syscall::Call(int nr,
   }
 #elif defined(__mips__)
   int err_status;
-  intptr_t ret = Syscall::SandboxSyscallRaw(nr, args, &err_status);
+  intptr_t ret = Syscall::SandboxSyscallRaw(nr, args, (intptr_t*)&err_status);
 
   if (err_status) {
     // On error, MIPS returns errno from syscall instead of -errno.
