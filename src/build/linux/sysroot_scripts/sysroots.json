@@ -29,4 +29,10 @@
         "SysrootDir": "debian_jessie_mips-sysroot",
         "Tarball": "debian_jessie_mips_sysroot.tgz"
     }
+    "jessie_mips64": {
+        "Revision": "501a18940d0a78a40306050946032cbf8f14e7c0",
+        "Sha1Sum": "79f2c9fd33caf8c5c90a4621a80c379c747a8f7e",
+        "SysrootDir": "debian_jessie_mips64-sysroot",
+        "Tarball": "debian_jessie_mips64_sysroot.tgz"
+    }
 }

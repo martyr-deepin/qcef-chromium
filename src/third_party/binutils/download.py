@@ -115,6 +115,10 @@ def main(args):
 
   if arch == 'x64':
     return FetchAndExtract(arch)
+  if arch == 'mips':
+    return FetchAndExtract(arch)
+  if arch == 'mips64':
+    return FetchAndExtract(arch)
   if arch == 'ia32':
     ret = FetchAndExtract(arch)
     if ret != 0:
