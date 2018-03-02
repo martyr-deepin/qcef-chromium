@@ -376,6 +376,9 @@ config("toolchain") {
       defines += [ "_MIPS_ARCH_MIPS64R6" ]
     } else if (mips_arch_variant == "r2") {
       defines += [ "_MIPS_ARCH_MIPS64R2" ]
+    } else if (mips_arch_variant == "loongson3") {
+      defines += [ "_MIPS_ARCH_LOONGSON" ]
+      defines += [ "FPU_MODE_FP64" ]
     }
   }
   if (v8_current_cpu == "s390" || v8_current_cpu == "s390x") {
