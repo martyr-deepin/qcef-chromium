@@ -30,7 +30,6 @@ ninja_args=is_debug=false \
 
 # enabled features
 ninja_args+=use_gio=true \
-            use_gold=true \
             use_pulseaudio=true \
             link_pulseaudio=true \
             proprietary_codecs=true \
@@ -40,21 +39,30 @@ ninja_args+=use_gio=true \
 
 # set the appropriate cpu architecture
 ifeq (i386,$(DEB_HOST_ARCH))
-ninja_args+=host_cpu=\"x86\"
+ninja_args+=host_cpu=\"x86\" \
+			use_gold=true
 TARGET_CPU = "x86"
 endif
 ifeq (amd64,$(DEB_HOST_ARCH))
-ninja_args+=host_cpu=\"x64\"
+ninja_args+=host_cpu=\"x64\" \
+			use_gold=true
 TARGET_CPU = "x64"
 endif
 ifeq (arm64,$(DEB_HOST_ARCH))
-ninja_args+=host_cpu=\"arm64\"
+ninja_args+=host_cpu=\"arm64\" \
+			use_gold=true
 TARGET_CPU = "arm64"
 endif
 ifeq (armhf,$(DEB_HOST_ARCH))
 ninja_args+=host_cpu=\"arm\" \
+			use_gold=true \
             arm_use_neon=false
 TARGET_CPU = "arm"
+endif
+ifeq (mips64el,$(DEB_HOST_ARCH))
+ninja_args+=host_cpu=\"mips64el\" \
+			use_gold=false
+TARGET_CPU = "mips64el"
 endif
 
 all: build-gn generate-cef-args build-cef
