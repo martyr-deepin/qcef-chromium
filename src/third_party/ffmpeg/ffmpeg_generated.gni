@@ -353,7 +353,10 @@ if ((is_linux && current_cpu == "arm" && arm_use_neon) || (is_linux && current_c
 if ((is_android && current_cpu == "mips64el") || (is_android && current_cpu == "mipsel") || (is_linux && current_cpu == "mipsel") || (is_linux && current_cpu == "mips64el")) {
   ffmpeg_c_sources += [
     "libavcodec/mips/constants.c",
+    "libavcodec/mips/h264chroma_mmi.c",
     "libavcodec/mips/h264pred_mmi.c",
+    "libavcodec/mips/h264dsp_mmi.c",
+    "libavcodec/mips/h264qpel_mmi.c",
     "libavcodec/mips/hpeldsp_mmi.c",
     "libavcodec/mips/vp8dsp_mmi.c",
     "libavutil/mips/float_dsp_mips.c",
