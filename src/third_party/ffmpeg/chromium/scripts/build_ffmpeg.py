@@ -110,6 +110,8 @@ def DetermineHostOsAndArch():
     host_arch = 'ia32'
   elif platform.machine() == 'x86_64' or platform.machine() == 'AMD64':
     host_arch = 'x64'
+  elif platform.machine() == 'mips64':
+    host_arch = 'mips64el'
   elif platform.machine() == 'aarch64':
     host_arch = 'arm64'
   elif platform.machine().startswith('arm'):
@@ -499,7 +501,21 @@ def main(argv):
       ])
     elif target_arch == 'mips64el':
       if target_os != "android":
-        configure_flags['Common'].extend([
+        if target_arch == host_arch:
+          configure_flags['Common'].extend([
+            '--target-os=linux',
+            '--arch=mips',
+            '--extra-cflags=-mips64r2',
+            '--extra-cflags=-EL',
+            '--extra-ldflags=-mips64r2',
+            '--extra-ldflags=-EL',
+            '--disable-mipsfpu',
+            '--disable-mipsdsp',
+            '--disable-mipsdspr2',
+            '--disable-mips32r2',
+          ])
+        else:
+          configure_flags['Common'].extend([
             '--enable-cross-compile',
             '--cross-prefix=mips64el-linux-gnuabi64-',
             '--target-os=linux',
@@ -512,7 +528,7 @@ def main(argv):
             '--disable-mipsdsp',
             '--disable-mipsdspr2',
             '--disable-mips32r2',
-      ])
+        ])
       else:
         configure_flags['Common'].extend([
             '--arch=mips',
