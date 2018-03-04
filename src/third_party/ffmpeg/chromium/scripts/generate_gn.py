@@ -75,7 +75,8 @@ GN_SOURCE_END = """]
 Attr = enum('ARCHITECTURE', 'TARGET', 'PLATFORM')
 SUPPORT_MATRIX = {
     Attr.ARCHITECTURE:
-        set(['ia32', 'x64', 'arm', 'arm64', 'arm-neon', 'mipsel', 'mips64el']),
+        set(['ia32', 'x64', 'arm', 'arm64', 'arm-neon', 'mipsel', 'mips64el',
+             'loongson2e', 'loongson2f', 'loongson3']),
     Attr.TARGET: set(['Chromium', 'Chrome', 'ChromeOS']),
     Attr.PLATFORM: set(['android', 'linux', 'win', 'mac'])
 }
@@ -307,6 +308,8 @@ class SourceSet(object):
         arch_condition = None
       elif condition.ARCHITECTURE == 'arm-neon':
         arch_condition = 'current_cpu == "arm" && arm_use_neon'
+      elif condition.ARCHITECTURE == 'loongson3':
+        arch_condition = 'current_cpu == "mips64el"'
       elif condition.ARCHITECTURE == 'ia32':
         arch_condition = 'current_cpu == "x86"'
       else:

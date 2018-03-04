@@ -54,6 +54,9 @@ Platform specific build notes:
   linux mips64el:
     Script can run on a normal Ubuntu with mips64el cross-toolchain in $PATH.
 
+  linux loongson2e/loongson2f/loongson3:
+    Script must run on Feodra21(Loongnix1.0): http://loongnix.org
+
   linux arm/arm-neon:
     Script must be run inside of ChromeOS SimpleChrome setup:
         cros chrome-sdk --board=arm-generic
@@ -518,6 +521,21 @@ def main(argv):
             '--extra-cflags=-mips64r6',
             '--disable-msa',
         ])
+    elif target_arch == 'loongson2e':
+      configure_flags['Common'].extend([
+        '--cpu=loongson2e',
+        '--enable-mmi',
+      ])
+    elif target_arch == 'loongson2f':
+      configure_flags['Common'].extend([
+        '--cpu=loongson2f',
+        '--enable-mmi',
+      ])
+    elif target_arch == 'loongson3':
+      configure_flags['Common'].extend([
+        '--cpu=loongson3',
+        '--enable-mmi',
+      ])
     else:
       print('Error: Unknown target arch %r for target OS %r!' % (
           target_arch, target_os), file=sys.stderr)
