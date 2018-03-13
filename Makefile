@@ -61,8 +61,7 @@ TARGET_CPU = "arm"
 endif
 ifeq (mips64el,$(DEB_HOST_ARCH))
 ninja_args+=host_cpu=\"mips64el\" \
-            use_gold=false \
-            use_system_freetype=true
+            use_gold=false
 TARGET_CPU = "mips64el"
 endif
 
