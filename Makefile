@@ -71,7 +71,7 @@ build-gn:
 	cd src && \
 		tools/gn/bootstrap/bootstrap.py -s --no-clean --no-rebuild --gn-gen-args="$(defines)"
 
-generate-gn-args:
+generate-chrome-args:
 	cd src && \
 		out/Release/gn gen out/Release --args="$(ninja_args)"
 
@@ -80,20 +80,22 @@ build-chrome:
 		ninja -C out/Release chrome chrome_sandbox
 
 # Create git repo in src or else git-patch command will not work
-generate-cef-args: create-temp-git-repos
-	cd src/cef && \
-	PATH=$(PWD)/src/out/Release:$(PWD)/depot_tools:$$PATH \
-		 ./cef_create_projects.sh
+generate-cef-args: create-temp-git-repos do-generate-cef-args clean-temp-git-repos
 
 create-temp-git-repos:
 	cd src && git init
 	cd src/third_party/pdfium && git init
 	cd src/third_party/swiftshader && git init
 
+do-generate-cef-args:
+	cd src/cef && \
+	PATH=$(PWD)/src/out/Release:$(PWD)/depot_tools:$$PATH \
+		 ./cef_create_projects.sh
+
 clean-temp-git-repos:
 	rm -rvf src/.git src/third_party/pdfium/.git src/third_party/swiftshader/.git
 
-build-cef: clean-temp-git-repos
+build-cef:
 	cd src && \
 		ninja -C out/Release_GN_$(TARGET_CPU) cef chrome_sandbox
 
