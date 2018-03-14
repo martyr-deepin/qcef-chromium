@@ -99,6 +99,14 @@ build-cef:
 	cd src && \
 		ninja -C out/Release_GN_$(TARGET_CPU) cef chrome_sandbox
 
+build-cef-tarball:
+	cd src/cef/tools && \
+		./make_distrib.sh  --no-symbols --no-docs --no-archive --ninja-build --x64-build --minimal \
+		--output-dir=../../../out
+	cd out/*minimal && \
+		tar -cf cef.x86_64.tar Release/ Resources/ && \
+		gzip --best cef.x86_64.tar
+
 update-submodules:
 	git submodule update --init --recursive
 	git submodule update --remote
