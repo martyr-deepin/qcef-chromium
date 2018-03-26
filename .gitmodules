@@ -1,4 +1,4 @@
 [submodule "src/cef"]
 	path = src/cef
-	url =../cef
+	url = https://cr.deepin.io/cef
 	branch = dev-3112
