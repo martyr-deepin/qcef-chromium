@@ -102,8 +102,11 @@ build-cef:
 build-cef-tarball:
 	cd src/cef/tools && \
 		./make_distrib.sh  --no-symbols --no-docs --no-archive --ninja-build --x64-build --minimal \
-		--distrib-subdir=cef \
+		--distrib-subdir=cef_$(TARGET_CPU) \
 		--output-dir=../../../out
+	cd out/cef_$(TARGET_CPU)_minimal && \
+		tar -cf cef.$(TARGET_CPU).tar Release/ Resources/ && \
+		gzip --best cef.$(TARGET_CPU).tar
 
 update-submodules:
 	git submodule update --init --recursive
