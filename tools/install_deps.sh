@@ -24,6 +24,7 @@ sudo apt-get install \
   fonts-tlwg-typist fonts-tlwg-typist-ttf fonts-tlwg-typo fonts-tlwg-typo-ttf \
   fonts-tlwg-umpush fonts-tlwg-umpush-ttf fonts-tlwg-waree \
   fonts-tlwg-waree-ttf gir1.2-atspi-2.0 gir1.2-gconf-2.0 \
+  g++-multilib \
   gir1.2-gnomekeyring-1.0 git-core git-svn gperf krb5-multidev lib32gcc1 \
   lib32stdc++6 libapache2-mod-php7.0 libapr1 libaprutil1 \
   libaprutil1-dbd-sqlite3 libaprutil1-ldap libasm1 libasound2-dev \
