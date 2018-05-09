@@ -101,7 +101,7 @@ build-cef:
 
 build-cef-tarball:
 	cd src/cef/tools && \
-		./make_distrib.sh  --no-symbols --no-docs --no-archive --ninja-build --x64-build --minimal \
+		./make_distrib.sh  --no-symbols --no-docs --no-archive --ninja-build --minimal \
 		--distrib-subdir=cef_$(TARGET_CPU) \
 		--output-dir=../../../out
 	cd out/cef_$(TARGET_CPU)_minimal && \
