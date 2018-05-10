@@ -17,6 +17,8 @@ namespace base {
 
 #if defined(OS_WIN)
 static const size_t kPageAllocationGranularityShift = 16;  // 64KB
+#elif defined(__mips__)
+static const size_t kPageAllocationGranularityShift = 14;  // 16KB
 #else
 static const size_t kPageAllocationGranularityShift = 12;  // 4KB
 #endif
@@ -29,7 +31,11 @@ static const size_t kPageAllocationGranularityBaseMask =
 
 // All Blink-supported systems have 4096 sized system pages and can handle
 // permissions and commit / decommit at this granularity.
+#ifdef __mips__
+static const size_t kSystemPageSize = 16384;
+#else
 static const size_t kSystemPageSize = 4096;
+#endif
 static const size_t kSystemPageOffsetMask = kSystemPageSize - 1;
 static const size_t kSystemPageBaseMask = ~kSystemPageOffsetMask;
 

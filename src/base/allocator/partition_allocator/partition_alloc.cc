@@ -18,8 +18,13 @@ static_assert(!(base::kSuperPageSize % base::kPartitionPageSize),
               "ok super page multiple");
 // Four system pages gives us room to hack out a still-guard-paged piece
 // of metadata in the middle of a guard partition page.
+#ifndef __mips__
 static_assert(base::kSystemPageSize * 4 <= base::kPartitionPageSize,
               "ok partition page size");
+#else
+static_assert(base::kSystemPageSize <= base::kPartitionPageSize,
+              "ok partition page size");
+#endif
 static_assert(!(base::kPartitionPageSize % base::kSystemPageSize),
               "ok partition page multiple");
 static_assert(sizeof(base::PartitionPage) <= base::kPageMetadataSize,
