@@ -20,6 +20,10 @@
 #include <sys/resource.h>
 #include <sys/time.h>
 
+#if defined(__mips__)
+#define MEMORY_TOOL_REPLACES_ALLOCATOR
+#endif
+
 #ifndef MAP_ANONYMOUS
 #define MAP_ANONYMOUS MAP_ANON
 #endif

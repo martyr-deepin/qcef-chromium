@@ -9,6 +9,10 @@
 #include "base/allocator/malloc_zone_functions_mac.h"
 #include "testing/gtest/include/gtest/gtest.h"
 
+#if defined(__mips__)
+#define MEMORY_TOOL_REPLACES_ALLOCATOR
+#endif
+
 namespace base {
 namespace allocator {
 

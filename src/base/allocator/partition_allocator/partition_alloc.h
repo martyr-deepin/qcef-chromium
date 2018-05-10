@@ -70,6 +70,10 @@
 #include "base/sys_byteorder.h"
 #include "build/build_config.h"
 
+#if defined(__mips__)
+#define MEMORY_TOOL_REPLACES_ALLOCATOR
+#endif
+
 #if defined(MEMORY_TOOL_REPLACES_ALLOCATOR)
 #include <stdlib.h>
 #endif

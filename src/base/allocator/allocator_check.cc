@@ -14,6 +14,10 @@
 #include <malloc.h>
 #endif
 
+#if defined(__mips__)
+#define MEMORY_TOOL_REPLACES_ALLOCATOR
+#endif
+
 #if defined(OS_MACOSX)
 #include "base/allocator/allocator_interception_mac.h"
 #endif
