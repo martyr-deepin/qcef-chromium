@@ -662,7 +662,7 @@ static bool ExecuteCopy(LocalFrame& frame,
   // |canExecute()|. See also "Cut", and "Paste" command.
   if (!CanWriteClipboard(frame, source))
     return false;
-  frame.GetEditor().Copy();
+  frame.GetEditor().Copy(source);
   return true;
 }
 
@@ -2054,11 +2054,17 @@ static bool EnableCaretInEditableText(LocalFrame& frame,
 static bool EnabledCopy(LocalFrame& frame, Event*, EditorCommandSource source) {
   if (!CanWriteClipboard(frame, source))
     return false;
+  if (source == kCommandFromMenuOrKeyBinding &&
+      !frame.Selection().SelectionHasFocus())
+    return false;
   return frame.GetEditor().CanDHTMLCopy() || frame.GetEditor().CanCopy();
 }
 
 static bool EnabledCut(LocalFrame& frame, Event*, EditorCommandSource source) {
   if (!CanWriteClipboard(frame, source))
+    return false;
+  if (source == kCommandFromMenuOrKeyBinding &&
+      !frame.Selection().SelectionHasFocus())
     return false;
   return frame.GetEditor().CanDHTMLCut() || frame.GetEditor().CanCut();
 }
@@ -2111,6 +2117,9 @@ static bool EnabledPaste(LocalFrame& frame,
                          Event*,
                          EditorCommandSource source) {
   if (!CanReadClipboard(frame, source))
+    return false;
+  if (source == kCommandFromMenuOrKeyBinding &&
+      !frame.Selection().SelectionHasFocus())
     return false;
   return frame.GetEditor().CanPaste();
 }

@@ -54,9 +54,6 @@ Platform specific build notes:
   linux mips64el:
     Script can run on a normal Ubuntu with mips64el cross-toolchain in $PATH.
 
-  linux loongson2e/loongson2f/loongson3:
-    Script must run on Feodra21(Loongnix1.0): http://loongnix.org
-
   linux arm/arm-neon:
     Script must be run inside of ChromeOS SimpleChrome setup:
         cros chrome-sdk --board=arm-generic
@@ -110,8 +107,6 @@ def DetermineHostOsAndArch():
     host_arch = 'ia32'
   elif platform.machine() == 'x86_64' or platform.machine() == 'AMD64':
     host_arch = 'x64'
-  elif platform.machine() == 'mips64':
-    host_arch = 'mips64el'
   elif platform.machine() == 'aarch64':
     host_arch = 'arm64'
   elif platform.machine().startswith('arm'):
@@ -501,21 +496,7 @@ def main(argv):
       ])
     elif target_arch == 'mips64el':
       if target_os != "android":
-        if target_arch == host_arch:
-          configure_flags['Common'].extend([
-            '--target-os=linux',
-            '--arch=mips',
-            '--extra-cflags=-mips64r2',
-            '--extra-cflags=-EL',
-            '--extra-ldflags=-mips64r2',
-            '--extra-ldflags=-EL',
-            '--disable-mipsfpu',
-            '--disable-mipsdsp',
-            '--disable-mipsdspr2',
-            '--disable-mips32r2',
-          ])
-        else:
-          configure_flags['Common'].extend([
+        configure_flags['Common'].extend([
             '--enable-cross-compile',
             '--cross-prefix=mips64el-linux-gnuabi64-',
             '--target-os=linux',
@@ -528,7 +509,7 @@ def main(argv):
             '--disable-mipsdsp',
             '--disable-mipsdspr2',
             '--disable-mips32r2',
-        ])
+      ])
       else:
         configure_flags['Common'].extend([
             '--arch=mips',
@@ -537,21 +518,6 @@ def main(argv):
             '--extra-cflags=-mips64r6',
             '--disable-msa',
         ])
-    elif target_arch == 'loongson2e':
-      configure_flags['Common'].extend([
-        '--cpu=loongson2e',
-        '--enable-mmi',
-      ])
-    elif target_arch == 'loongson2f':
-      configure_flags['Common'].extend([
-        '--cpu=loongson2f',
-        '--enable-mmi',
-      ])
-    elif target_arch == 'loongson3':
-      configure_flags['Common'].extend([
-        '--cpu=loongson3',
-        '--enable-mmi',
-      ])
     else:
       print('Error: Unknown target arch %r for target OS %r!' % (
           target_arch, target_os), file=sys.stderr)

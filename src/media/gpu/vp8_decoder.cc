@@ -94,7 +94,6 @@ VP8Decoder::DecodeResult VP8Decoder::Decode() {
   if (!curr_pic_)
     return kRanOutOfSurfaces;
 
-  curr_pic_->visible_rect = gfx::Rect(pic_size_);
   if (!DecodeAndOutputCurrentFrame())
     return kDecodeError;
 
