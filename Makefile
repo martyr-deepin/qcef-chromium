@@ -104,6 +104,11 @@ build-cef:
 	cd src && \
 		ninja -C out/Release_GN_$(TARGET_CPU) cef chrome_sandbox
 
+clean-cef:
+	cd src && git checkout .
+	cd src && rm -rf ui/base/clipboard/clipboard_qt_mapper.cc \
+		ui/base/clipboard/clipboard_qt_mapper.h
+
 build-cef-tarball:
 	cd src/cef/tools && \
 		./make_distrib.sh  --no-symbols --no-docs --no-archive --ninja-build --minimal \
