@@ -19,6 +19,7 @@
 #include "src/heap-symbols.h"
 #include "src/list.h"
 #include "src/objects.h"
+#include "src/objects/hash-table-inl.h"
 #include "src/objects/hash-table.h"
 #include "src/objects/string-table.h"
 #include "src/visitors.h"
