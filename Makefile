@@ -69,7 +69,8 @@ all: build-gn generate-cef-args build-cef
 
 install-deps:
 	sudo apt-get install libcups2-dev libgtk2.0-dev libnss3-dev \
-		libgtkglext1-dev libgconf2-dev libffi-dev
+		libgtkglext1-dev libgconf2-dev libffi-dev libasound2-dev gperf \
+		bison libpci-dev libxss-dev
 
 build-gn:
 	cd src && \
